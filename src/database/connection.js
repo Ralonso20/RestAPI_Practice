@@ -19,5 +19,6 @@ export async function getConnection(){
     
 };
 
+export {mysql2};
 
 
