@@ -1,9 +1,9 @@
-import { getConnection, mysql2 } from "../database/connection";
+import { getConnection, queries } from "../database";
 
 export const getProducts = async (req, res) => {
     try {
         const pool = await getConnection();
-        const [rows, fields] = await pool.query('SELECT * FROM Products');
+        const [rows, fields] = await pool.query(queries.getAllProducts);
         res.json(rows);    
     } catch (error) {
         res.status(500);
@@ -30,7 +30,7 @@ export const createNewProduct = async (req, res) => {
 
     try {
         const pool = await getConnection();
-        await pool.query('INSERT INTO Products SET ?', post);
+        await pool.query(addNewProduct, post);
 
         res.json({name, description, quantity});        
     } catch (error) {
