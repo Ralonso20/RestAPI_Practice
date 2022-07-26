@@ -1,15 +1,9 @@
 import { getConnection } from "../database/connection";
 
-export const getProducts = (req, res) => {
+export const getProducts = async (req, res) => {
     
-    const pool = getConnection();
-    pool.query(('SELECT * FROM Products'), function(err, rows, fields){
-        if(err){
-            console.log('error');
-            return;
-        }
-
-        res.json(rows);
-    })
+    const pool = await getConnection();
+    const [rows, fields] = await pool.query('SELECT * FROM Products');
+    res.json(rows);
     
-}
+};
