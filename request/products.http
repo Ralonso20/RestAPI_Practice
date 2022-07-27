@@ -11,3 +11,6 @@ Content-Type: application/json
     "name": "microfono",
     "description": "microfono Sumsang"
 }
+
+###
+GET {{api}}/4

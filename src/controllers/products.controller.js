@@ -30,12 +30,28 @@ export const createNewProduct = async (req, res) => {
 
     try {
         const pool = await getConnection();
-        await pool.query(addNewProduct, post);
+        await pool.query(queries.addNewProduct, post);
 
         res.json({name, description, quantity});        
     } catch (error) {
         res.status(500);
         res.send(error.msg);      
     }
+    
+};
+
+export const getProductById = async (req, res) => {
+    const {id} = req.params;
+
+    try {
+        const pool = await getConnection();
+        const [rows, fields] = await pool.query(queries.getProductById + id);
+          
+        res.send(rows);      
+    } catch (error) {
+        res.status(500);
+        res.send(error.msg);      
+    }
+    
     
 };
