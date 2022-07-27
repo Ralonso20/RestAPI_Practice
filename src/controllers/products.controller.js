@@ -55,3 +55,50 @@ export const getProductById = async (req, res) => {
     
     
 };
+
+export const deleteProductById = async (req, res) => {
+    const {id} = req.params;
+
+    try {
+        const pool = await getConnection();
+        await pool.query('SET SQL_SAFE_UPDATE = 0');
+        const [rows, fields] = await pool.query(queries.deleteProduct, id);
+          
+        res.send(rows);      
+    } catch (error) {
+        res.status(500);
+        res.send(error.msg);      
+    }
+    
+    
+};
+
+export const updateProductById = async (req, res) => { 
+
+    const {name, description, quantity} = req.body;
+    const {id} = req.body;
+
+    if(quantity == null) quantity = 0;
+
+    if(name == null || description == null || quantity){
+        return res.status(400).json({msg: 'Bad Request, please fill all fields'});
+    };
+    
+    const post = {
+        name : name,
+        description : description,
+        quantity : quantity,
+        id : id
+    }
+
+    try {
+        const pool = await getConnection();
+        await pool.query(queries.updateProduct, post);
+
+        res.json({id, name, description, quantity});        
+    } catch (error) {
+        res.status(500);
+        res.send(error.msg);      
+    }
+    
+};
