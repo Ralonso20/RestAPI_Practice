@@ -1,23 +1,24 @@
 import mysql2 from 'mysql2';
 
-const connection = mysql2.createConnection({
+const dbSettings = {
     host : 'localhost',
     user : 'node',
     password : 'password',
-    database : 'webstore',
-});
+    database : 'webstore'
+};
 
 
-export function getConnection(){
+export async function getConnection(){
     //conectarse a mysql
     try{
-        connection.connect();
-        return connection;
+        const pool = mysql2.createPool(dbSettings);
+        return pool.promise();
     }catch(error){
         console.error(error);
     }
     
 };
 
+export {mysql2};
 
 

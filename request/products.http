@@ -1,0 +1,31 @@
+@api = http://localhost:4000/products
+
+GET {{api}}
+
+###
+
+POST {{api}}
+Content-Type: application/json
+
+{
+    "name": "microfono",
+    "description": "microfono Sumsang"
+}
+
+###
+GET {{api}}/4
+
+### Borrando un producto
+
+DELETE {{api}}/8
+
+### Actualizar producto
+
+PUT {{api}}
+Content-Type: application/json
+
+{
+    "name": "Producto",
+    "description": "modificado",
+    "quantity": 300
+}
